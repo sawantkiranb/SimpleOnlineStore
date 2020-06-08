@@ -29,13 +29,13 @@ namespace onlinestore.api.Data
             {
                 var computedPasswordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
 
-                for (int i = 0; i <= computedPasswordHash.Length; i++)
+                for (int i = 0; i < computedPasswordHash.Length; i++)
                 {
-                    if (computedPasswordHash[1] != passwordHash[i])
+                    if (computedPasswordHash[i] != passwordHash[i])
                         return false;
                 }
+                return true;
             }
-            return true;
         }
 
         public async Task<User> Register(User user, string password)
@@ -45,6 +45,7 @@ namespace onlinestore.api.Data
 
             user.PasswordHash = passwordHash;
             user.PasswordSalt = passwordSalt;
+            user.Username = user.Username.ToLower();
 
             await _context.Users.AddAsync(user);
             await _context.SaveChangesAsync();
@@ -63,7 +64,7 @@ namespace onlinestore.api.Data
 
         public async Task<bool> UserExists(string username)
         {
-            return await _context.Users.AnyAsync(x => x.Username == username);
+            return await _context.Users.AnyAsync(x => x.Username.ToLower() == username.ToLower());
         }
     }
 }
