@@ -1,0 +1,29 @@
+<mat-card class="register-card p-5">
+  <mat-card-title>Sign up</mat-card-title>
+  <form [formGroup]="registerForm" (ngSubmit)="register()">
+    <mat-card-content>
+      <mat-form-field class="mat-form-control">
+        <input matInput placeholder="Username" formControlName="username" />
+      </mat-form-field>
+      <mat-form-field class="mat-form-control">
+        <input matInput placeholder="Email" formControlName="email" />
+      </mat-form-field>
+      <mat-form-field class="mat-form-control">
+        <input matInput placeholder="Password" formControlName="password" />
+      </mat-form-field>
+      <mat-form-field class="mat-form-control">
+        <input
+          matInput
+          placeholder="Confirm Password"
+          formControlName="confirmPassword"
+        />
+      </mat-form-field>
+    </mat-card-content>
+    <button type="submit" mat-stroked-button color="primary" class="mr-2">
+      Register
+    </button>
+    <button mat-stroked-button color="primary" (click)="cancel()">
+      Cancel
+    </button>
+  </form>
+</mat-card>

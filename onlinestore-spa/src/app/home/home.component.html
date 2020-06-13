@@ -1,0 +1,27 @@
+<div
+  class="container text-center mt-5"
+  fxLayout="column"
+  fxLayoutAlign="center center"
+>
+  <div *ngIf="!logIn && !register">
+    <h1>Products For Everyone...</h1>
+    <p>Choose from over 1000 Awesome products to suit your style.</p>
+    <button
+      mat-stroked-button
+      color="primary"
+      class="mr-2"
+      (click)="showRegister()"
+    >
+      Register
+    </button>
+    <button mat-stroked-button color="primary" (click)="showLogIn()">
+      Login
+    </button>
+  </div>
+  <div *ngIf="logIn">
+    <app-login (cancelLogin)="cancelLogin($event)"></app-login>
+  </div>
+  <div *ngIf="register">
+    <app-register (cancelRegister)="cancelRegister($event)"></app-register>
+  </div>
+</div>

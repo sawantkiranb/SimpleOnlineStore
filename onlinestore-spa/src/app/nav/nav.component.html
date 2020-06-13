@@ -1,0 +1,26 @@
+<mat-toolbar color="secondary">
+  <mat-toolbar-row fxLayout="row" fxLayoutAlign=" end">
+    <a class="navbar-brand" href="#">Online Store</a>
+    <div>
+      <a [routerLink]="['/']" routerLinkActive="active" mat-button>Home</a>
+      <a [routerLink]="['/products']" routerLinkActive="active" mat-button
+        >Products</a
+      >
+      <a [routerLink]="['/contact']" routerLinkActive="active" mat-button
+        >Contact</a
+      >
+    </div>
+    <span class="menu-spacer"></span>
+    <a href="#" mat-button>Cart</a>
+
+    <div *ngIf="loggedIn()">
+      <a mat-button [matMenuTriggerFor]="menu"
+        >Welcome {{ authService.decodedToken.unique_name | titlecase }}</a
+      >
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item>Profile</button>
+        <button mat-menu-item (click)="logOut()">Sign out</button>
+      </mat-menu>
+    </div>
+  </mat-toolbar-row>
+</mat-toolbar>
