@@ -1,5 +1,5 @@
 <mat-toolbar color="secondary">
-  <mat-toolbar-row fxLayout="row" fxLayoutAlign=" end">
+  <mat-toolbar-row class="nav-bar" fxLayout="row" fxLayoutAlign=" end">
     <a class="navbar-brand" href="#">Online Store</a>
     <div>
       <a [routerLink]="['/']" routerLinkActive="active" mat-button>Home</a>
@@ -11,14 +11,29 @@
       >
     </div>
     <span class="menu-spacer"></span>
-    <a href="#" mat-button>Cart</a>
+
+    <a
+      [routerLink]="['products/cart']"
+      routerLinkActive="router-link-active"
+      mat-button
+      color="{{
+        (authService.currentShoppingCartCount | async) > 0
+          ? 'accent'
+          : 'secondary'
+      }}"
+      matBadgePosition="after"
+      matBadgeColor="accent"
+      matBadge="{{ authService.currentShoppingCartCount | async }}"
+      [matBadgeHidden]="false"
+      >Cart</a
+    >
 
     <div *ngIf="loggedIn()">
+      <a [routerLink]="['products/wishlist']" mat-button>Wishlist</a>
       <a mat-button [matMenuTriggerFor]="menu"
         >Welcome {{ authService.decodedToken.unique_name | titlecase }}</a
       >
       <mat-menu #menu="matMenu">
-        <button mat-menu-item>Profile</button>
         <button mat-menu-item (click)="logOut()">Sign out</button>
       </mat-menu>
     </div>

@@ -1,0 +1,21 @@
+<div class="product-card text-center mb-4" fxFlex>
+  <mat-card>
+    <img
+      class="product-thumbnail"
+      mat-card-image
+      src="{{ product.photoUrl || '../../../../../assets/noimage.JPG' }}"
+      [alt]="product.name"
+    />
+    <mat-card-content>
+      <strong>{{ product.name }}</strong>
+      <p>{{ product.shortDescription }}</p>
+      <p>
+        <strong>{{ product.price | currency: "INR":true }}</strong>
+      </p>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-button>Like</button>
+      <button mat-button [routerLink]="['details', product.id]">Select</button>
+    </mat-card-actions>
+  </mat-card>
+</div>

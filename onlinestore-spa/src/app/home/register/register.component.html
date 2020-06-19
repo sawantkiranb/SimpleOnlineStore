@@ -4,22 +4,65 @@
     <mat-card-content>
       <mat-form-field class="mat-form-control">
         <input matInput placeholder="Username" formControlName="username" />
+        <mat-error *ngIf="f.username.errors && f.username.touched">
+          <div *ngIf="f.username.errors.required">
+            Username field is required
+          </div>
+          <div *ngIf="f.username.errors.minlength">
+            Username should be between
+            {{ f.username.errors.minlength.requiredLength }} to 20 characters
+          </div>
+        </mat-error>
       </mat-form-field>
       <mat-form-field class="mat-form-control">
         <input matInput placeholder="Email" formControlName="email" />
+        <mat-error *ngIf="f.email.errors && f.email.touched">
+          <div *ngIf="f.email.errors.required">Email field is required</div>
+          <div *ngIf="f.email.errors.email">Email should be valid</div>
+        </mat-error>
       </mat-form-field>
       <mat-form-field class="mat-form-control">
-        <input matInput placeholder="Password" formControlName="password" />
+        <input
+          matInput
+          placeholder="Password"
+          formControlName="password"
+          name="password"
+        />
+        <mat-error *ngIf="f.password.errors && f.password.touched">
+          <div *ngIf="f.password.errors.required">
+            Password field is required
+          </div>
+        </mat-error>
       </mat-form-field>
       <mat-form-field class="mat-form-control">
         <input
           matInput
           placeholder="Confirm Password"
           formControlName="confirmPassword"
+          name="confirmPassword"
         />
+        <mat-error
+          *ngIf="
+            (f.confirmPassword.errors && f.confirmPassword.touched) ||
+            (f.confirmPassword.touched && registerForm.errors?.mismatch)
+          "
+        >
+          <div *ngIf="f.confirmPassword.errors?.required">
+            Confirm password field is required
+          </div>
+          <div *ngIf="registerForm.errors?.mismatch">
+            Confirm Password must match password field
+          </div>
+        </mat-error>
       </mat-form-field>
     </mat-card-content>
-    <button type="submit" mat-stroked-button color="primary" class="mr-2">
+    <button
+      type="submit"
+      [disabled]="!registerForm.valid"
+      mat-stroked-button
+      color="primary"
+      class="mr-2"
+    >
       Register
     </button>
     <button mat-stroked-button color="primary" (click)="cancel()">

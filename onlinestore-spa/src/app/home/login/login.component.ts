@@ -40,4 +40,8 @@ export class LoginComponent implements OnInit {
     this.cancelLogin.emit(false);
   }
 
+  get f() {
+    return this.loginForm.controls;
+  }
+
 }

@@ -1,0 +1,11 @@
+<h1 mat-dialog-title>Confirm!!</h1>
+<div mat-dialog-content class="mb-4">
+  Are you sure you want to add this product to cart?
+</div>
+<mat-divider></mat-divider>
+<div mat-dialog-actions>
+  <button mat-button (click)="close()">Cancel</button>
+  <button mat-button [mat-dialog-close]="data.productId">
+    Confirm
+  </button>
+</div>

@@ -32,6 +32,8 @@ namespace onlinestore.api.Migrations
                     Stock = table.Column<int>(nullable: false),
                     Price = table.Column<int>(nullable: false),
                     Description = table.Column<string>(nullable: true),
+                    DateAdded = table.Column<DateTime>(nullable: false),
+                    DateModified = table.Column<DateTime>(nullable: true),
                     CategoryId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>

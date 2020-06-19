@@ -1,5 +1,8 @@
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using onlinestore.api.Helpers;
 using onlinestore.api.Models;
 
 namespace onlinestore.api.Data
@@ -25,8 +28,79 @@ namespace onlinestore.api.Data
         }
         public async Task<User> GetUser(int id)
         {
-            return await _context.Users.FirstOrDefaultAsync(x => x.Id == id);
+            return await _context.Users
+            .FirstOrDefaultAsync(x => x.Id == id);
+        }
+        public async Task<IEnumerable<Product>> GetProducts(ProductFilter filter)
+        {
+            var products = _context.Products
+            .Include(p => p.Photos)
+            .Include(c => c.Category)
+            .AsQueryable();
+
+            switch (filter.SortBy)
+            {
+                case "new":
+                    products = products.OrderByDescending(p => p.DateAdded);
+                    break;
+                case "pricehtl":
+                    products = products.OrderByDescending(p => p.Price);
+                    break;
+                case "pricelth":
+                    products = products.OrderBy(p => p.Price);
+                    break;
+            }
+
+            if (!string.IsNullOrWhiteSpace(filter.SearchText))
+            {
+                products = products.Where(p => p.Name.ToLower().Contains(filter.SearchText.ToLower()));
+            }
+
+            return await products.ToListAsync();
+        }
+        public async Task<Product> GetProduct(int id)
+        {
+            var product = await _context.Products
+            .Include(p => p.Photos)
+            .Include(c => c.Category)
+            .FirstOrDefaultAsync(p => p.Id == id);
+
+            return product;
         }
 
+        public async Task<int> GetMaxProductId()
+        {
+            return await _context.Products
+            .MaxAsync(p => p.Id);
+        }
+
+        public async Task<Cart> GetCartItem(int id)
+        {
+            return await _context.Carts
+            .Include(p => p.Product)
+            .FirstOrDefaultAsync(c => c.Id == id);
+        }
+
+        public async Task<Cart> GetCartItemForUser(int userId, int productId)
+        {
+            return await _context.Carts
+            .Include(p => p.Product)
+            .FirstOrDefaultAsync(c => c.ProductId == productId && c.UserId == userId);
+        }
+
+        public async Task<IEnumerable<Cart>> GetCartForUser(int userId)
+        {
+            return await _context.Carts
+            .Include(p => p.Product)
+            .Include(c => c.Product.Photos)
+            .Where(x => x.UserId == userId)
+            .ToListAsync();
+        }
+
+        public async Task<Like> GetLikedProduct(int id)
+        {
+            return await _context.Likes
+            .FirstOrDefaultAsync(p => p.Id == id);
+        }
     }
 }

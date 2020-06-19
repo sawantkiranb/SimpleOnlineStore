@@ -33,6 +33,7 @@ namespace onlinestore.api.Data
 
                 foreach (var product in products)
                 {
+                    product.DateAdded = DateTime.Now;
                     context.Products.Add(product);
                 }
                 context.SaveChanges();

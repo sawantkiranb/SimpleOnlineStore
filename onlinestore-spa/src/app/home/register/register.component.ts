@@ -15,16 +15,21 @@ export class RegisterComponent implements OnInit {
   @Output() cancelRegister = new EventEmitter<boolean>();
   registerForm: FormGroup;
   registerModel: UserForRegistration;
+  hide = true;
 
   constructor(private authService: AuthService, private alert: AlertService, private fb: FormBuilder, private router: Router) { }
 
   ngOnInit() {
+    this.createRegisterForm();
+  }
+
+  createRegisterForm() {
     this.registerForm = this.fb.group({
       username: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required],
+      password: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(20)]],
       confirmPassword: ['', Validators.required]
-    });
+    }, { validators: this.passwordMatchValidator });
   }
 
   register() {
@@ -54,6 +59,10 @@ export class RegisterComponent implements OnInit {
 
   get f() {
     return this.registerForm.controls;
+  }
+
+  passwordMatchValidator(f: FormGroup) {
+    return (f.get('password').value === f.get('confirmPassword').value) ? null : { mismatch: true };
   }
 
 }

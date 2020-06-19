@@ -1,0 +1,22 @@
+.shopping-cart {
+  /* background-color: aquamarine; */
+  padding: 50px;
+}
+
+.shopping-summary {
+  background-color: #f3f3f3;
+  padding: 50px;
+}
+
+.div-1 {
+  background-color: red;
+  height: 100px;
+}
+.div-2 {
+  background-color: green;
+  height: 100px;
+}
+.div-3 {
+  background-color: blue;
+  height: 100px;
+}

@@ -1,0 +1,29 @@
+<mat-card class="mt-2" fxLayout="row" fxLayoutAlign="space-between center">
+  <div fxLayout="row">
+    <img class="cart-image" src="{{ product.photoUrl }}" alt="" />
+    <mat-card-header>
+      <mat-card-title>{{ product.productName }}</mat-card-title>
+      <mat-card-subtitle>{{ product.shortDescription }}</mat-card-subtitle>
+    </mat-card-header>
+  </div>
+  <mat-card-content class="card-content">
+    <mat-select
+      [(ngModel)]="product.quantity"
+      (selectionChange)="updateQuantity($event)"
+    >
+      <mat-option *ngFor="let item of quantityList" [value]="item.value">
+        {{ item.displayName }}
+      </mat-option>
+    </mat-select>
+  </mat-card-content>
+  <mat-card-actions fxLayout="column" fxLayoutAlign="start center">
+    <mat-card-subtitle
+      ><strong>{{
+        product.totalPrice | currency: "INR":true
+      }}</strong></mat-card-subtitle
+    >
+    <button mat-raised-button color="accent" (click)="deleteCartItem()">
+      Remove
+    </button>
+  </mat-card-actions>
+</mat-card>

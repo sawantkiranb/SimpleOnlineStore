@@ -6,6 +6,7 @@ namespace onlinestore.api.Dtos
     public class UserForRegisterDto
     {
         [Required]
+        [StringLength(20,MinimumLength=3,ErrorMessage="Username must be between 6 to 20 characters")]
         public string Username { get; set; }
 
         [Required]
