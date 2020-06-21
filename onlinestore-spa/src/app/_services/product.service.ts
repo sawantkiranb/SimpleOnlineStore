@@ -17,4 +17,16 @@ export class ProductService {
   getProduct(id: number) {
     return this.http.get(API_URL + '/' + id);
   }
+
+  likeProduct(userId: number, productId: number) {
+    return this.http.post(API_URL + '/' + userId + '/like/' + productId, {});
+  }
+
+  dislikeProduct(userId: number, productId: number) {
+    return this.http.post(API_URL + '/' + userId + '/dislike/' + productId, {});
+  }
+
+  getLikedProducts(userId: number) {
+    return this.http.get(API_URL + '/' + userId + '/like');
+  }
 }

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace onlinestore.api.Models
 {
@@ -11,5 +12,7 @@ namespace onlinestore.api.Models
         public byte[] PasswordSalt { get; set; }
         public DateTime Created { get; set; }
         public DateTime LastActive { get; set; }
+
+        ICollection<Like> Likes { get; set; }
     }
 }

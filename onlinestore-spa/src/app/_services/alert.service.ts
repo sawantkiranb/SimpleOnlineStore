@@ -17,7 +17,7 @@ export class AlertService {
 
   success(message: string) {
     this.snackBar.open(message, 'Close', {
-      duration: 5000,
+      duration: 1000,
       horizontalPosition: this.horizontalPosition,
       verticalPosition: this.verticalPosition,
       panelClass: ['success-snackbar']
@@ -26,7 +26,7 @@ export class AlertService {
 
   error(message: string) {
     this.snackBar.open(message, 'Close', {
-      duration: 5000,
+      duration: 1000,
       horizontalPosition: this.horizontalPosition,
       verticalPosition: this.verticalPosition,
       panelClass: ['error-snackbar']

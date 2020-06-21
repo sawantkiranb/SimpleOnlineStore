@@ -1,0 +1,10 @@
+.product-Filter {
+  background-color: #f3f3f3;
+}
+
+.empty-cart {
+  margin: 10%;
+  padding: 100px 0;
+  border: 1px solid #dadada;
+  border-radius: 5px;
+}

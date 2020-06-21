@@ -15,7 +15,8 @@ namespace onlinestore.api.Helpers
 
             //Product
             CreateMap<Product, ProductToReturnDto>()
-            .ForMember(dest => dest.PhotoUrl, opt => opt.MapFrom(src => src.Photos.FirstOrDefault(p => p.IsMain).Url));
+            .ForMember(dest => dest.PhotoUrl, opt => opt.MapFrom(src => src.Photos.FirstOrDefault(p => p.IsMain).Url))
+            .ForMember(dest => dest.Likes, opt => opt.MapFrom(src => src.Likes.Count));
 
             CreateMap<Product, ProductForDetailsDto>()
             .ForMember(dest => dest.PhotoUrl, opt => opt.MapFrom(src => src.Photos.FirstOrDefault(p => p.IsMain == true).Url))
@@ -37,6 +38,14 @@ namespace onlinestore.api.Helpers
             .ForMember(dest => dest.ShortDescription, opt => opt.MapFrom(src => src.Product.ShortDescription))
             .ForMember(dest => dest.PhotoUrl, opt => opt.MapFrom(src => src.Product.Photos.FirstOrDefault(p => p.IsMain == true).Url));
 
+            //Wishlist
+            CreateMap<Like, LikedProductToReturnDto>()
+            .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Product.Name))
+            .ForMember(dest => dest.Price, opt => opt.MapFrom(src => src.Product.Price))
+            .ForMember(dest => dest.SerialNo, opt => opt.MapFrom(src => src.Product.SerialNo))
+            .ForMember(dest => dest.ShortDescription, opt => opt.MapFrom(src => src.Product.ShortDescription))
+            .ForMember(dest => dest.Stock, opt => opt.MapFrom(src => src.Product.Stock))
+            .ForMember(dest => dest.PhotoUrl, opt => opt.MapFrom(src => src.Product.Photos.FirstOrDefault(p => p.IsMain).Url));
         }
     }
 }

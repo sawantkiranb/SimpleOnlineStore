@@ -9,8 +9,8 @@ using onlinestore.api.Data;
 namespace onlinestore.api.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20200618161319_AddedLikeEntity")]
-    partial class AddedLikeEntity
+    [Migration("20200620085942_addedLikeEntity")]
+    partial class addedLikeEntity
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -72,9 +72,14 @@ namespace onlinestore.api.Migrations
                     b.Property<int>("ProductId")
                         .HasColumnType("INTEGER");
 
+                    b.Property<int>("UserId")
+                        .HasColumnType("INTEGER");
+
                     b.HasKey("Id");
 
                     b.HasIndex("ProductId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Likes");
                 });
@@ -188,8 +193,14 @@ namespace onlinestore.api.Migrations
             modelBuilder.Entity("onlinestore.api.Models.Like", b =>
                 {
                     b.HasOne("onlinestore.api.Models.Product", "Product")
-                        .WithMany()
+                        .WithMany("Likes")
                         .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("onlinestore.api.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

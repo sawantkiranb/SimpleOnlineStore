@@ -30,7 +30,9 @@ export class ShoppingCartComponent implements OnInit {
   }
 
   calculateTotal() {
-    return this.products.map(a => a.price * a.quantity).reduce((a, c) => a + c);
+    return (this.products.length > 0)
+      ? this.products.map(a => a.price * a.quantity).reduce((a, c) => a + c)
+      : 0;
   }
 
   itemRemoved(removedItem: CartProduct) {

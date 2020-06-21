@@ -4,7 +4,7 @@ namespace onlinestore.api.Helpers
     {
         public string SortBy { get; set; }
         public string SearchText { get; set; }
-
+        
         public ProductFilter()
         {
             SortBy = "new";

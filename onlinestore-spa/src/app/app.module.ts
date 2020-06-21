@@ -1,3 +1,5 @@
+import { LikedProductCardComponent } from './products-list/wish-list/liked-product-card/liked-product-card.component';
+import { WishListComponent } from './products-list/wish-list/wish-list.component';
 import { CartItemComponent } from './products-list/shopping-cart/cart-item/cart-item.component';
 import { ShoppingCartComponent } from './products-list/shopping-cart/shopping-cart.component';
 
@@ -25,6 +27,8 @@ import { ProductsListComponent } from './products-list/products-list.component';
 import { ContactUsComponent } from './contact-us/contact-us.component';
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 import { ShoppingCartResolver } from './_resolvers/shopping-cart.resolver';
+import { LikedProductsResolver } from './_resolvers/liked-products.resolver';
+import { CheckoutComponent } from './checkout/checkout.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +43,10 @@ import { ShoppingCartResolver } from './_resolvers/shopping-cart.resolver';
     ProductDetailsComponent,
     ConfirmDialogComponent,
     ShoppingCartComponent,
-    CartItemComponent
+    CartItemComponent,
+    WishListComponent,
+    LikedProductCardComponent,
+    CheckoutComponent
   ],
   imports: [
     BrowserModule,
@@ -56,7 +63,8 @@ import { ShoppingCartResolver } from './_resolvers/shopping-cart.resolver';
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptorService, multi: true },
     ProductListResolver,
     ProductDetailsResolver,
-    ShoppingCartResolver
+    ShoppingCartResolver,
+    LikedProductsResolver
   ],
   bootstrap: [
     AppComponent

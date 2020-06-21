@@ -17,6 +17,7 @@ namespace onlinestore.api.Data
         Task<Cart> GetCartItem(int id);
         Task<Cart> GetCartItemForUser(int userId, int productId);
         Task<IEnumerable<Cart>> GetCartForUser(int userId);
-        Task<Like> GetLikedProduct(int id);
+        Task<Like> GetLikedProduct(int userId, int iproductIdd);
+        Task<IEnumerable<Like>> GetLikedProducts(int userId);
     }
 }

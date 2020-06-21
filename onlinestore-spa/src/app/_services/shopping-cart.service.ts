@@ -16,6 +16,10 @@ export class ShoppingCartService {
     return this.http.post(API_URL + '/' + userId + '/cart', cartItem);
   }
 
+  updateCartProduct(userId: number, cartItem: CartProduct) {
+    return this.http.post(API_URL + '/' + userId + '/cart/update', cartItem);
+  }
+
   getCartCount(userId: number) {
     return this.http.get(API_URL + '/' + userId + '/cart/count');
   }

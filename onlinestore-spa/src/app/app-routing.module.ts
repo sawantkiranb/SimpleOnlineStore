@@ -1,3 +1,5 @@
+import { CheckoutComponent } from './checkout/checkout.component';
+import { LikedProductsResolver } from './_resolvers/liked-products.resolver';
 import { ShoppingCartComponent } from './products-list/shopping-cart/shopping-cart.component';
 import { ProductDetailsResolver } from './_resolvers/product-details.resolver';
 import { ProductDetailsComponent } from './products-list/product-details/product-details.component';
@@ -13,6 +15,7 @@ import { ShoppingCartResolver } from './_resolvers/shopping-cart.resolver';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
+  { path: 'checkout', component: CheckoutComponent, canActivate: [AuthGuard] },
   {
     path: 'products',
     runGuardsAndResolvers: 'always',
@@ -27,7 +30,12 @@ const routes: Routes = [
         component: ProductDetailsComponent,
         resolve: { product: ProductDetailsResolver }
       },
-      { path: 'wishlist', component: WishListComponent, canActivate: [AuthGuard] },
+      {
+        path: 'wishlist',
+        component: WishListComponent,
+        resolve: { products: LikedProductsResolver },
+        canActivate: [AuthGuard]
+      },
       {
         path: 'cart',
         component: ShoppingCartComponent,

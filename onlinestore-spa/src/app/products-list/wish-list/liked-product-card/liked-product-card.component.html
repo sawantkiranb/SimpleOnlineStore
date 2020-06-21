@@ -16,16 +16,14 @@
     <mat-card-actions>
       <button
         mat-raised-button
-        color="primary"
-        matBadge="{{ product.likes }}"
+        color="warn"
         matBadgeColor="accent"
         matBadgeSize="medium"
-        matBadgeHidden="{{ product.likes <= 0 }}"
-        (click)="like()"
+        (click)="dislike()"
       >
-        Like
+        Revome
       </button>
-      <a mat-button [routerLink]="['details', product.id]">Select</a>
+      <a mat-button [routerLink]="['../details', product.id]">Select</a>
     </mat-card-actions>
   </mat-card>
 </div>

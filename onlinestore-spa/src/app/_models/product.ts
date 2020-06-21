@@ -11,5 +11,6 @@ export interface Product {
   category?: string;
   description?: string;
   photos?: Photo[];
+  likes?: number;
 
 }

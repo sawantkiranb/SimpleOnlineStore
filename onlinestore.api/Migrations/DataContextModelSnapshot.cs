@@ -77,6 +77,8 @@ namespace onlinestore.api.Migrations
 
                     b.HasIndex("ProductId");
 
+                    b.HasIndex("UserId");
+
                     b.ToTable("Likes");
                 });
 
@@ -189,8 +191,14 @@ namespace onlinestore.api.Migrations
             modelBuilder.Entity("onlinestore.api.Models.Like", b =>
                 {
                     b.HasOne("onlinestore.api.Models.Product", "Product")
-                        .WithMany()
+                        .WithMany("Likes")
                         .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("onlinestore.api.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

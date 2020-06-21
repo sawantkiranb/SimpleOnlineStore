@@ -18,5 +18,6 @@ namespace onlinestore.api.Models
         public int CategoryId { get; set; }
         public Category Category { get; set; }
         public ICollection<Photo> Photos { get; set; }
+        public ICollection<Like> Likes { get; set; }
     }
 }

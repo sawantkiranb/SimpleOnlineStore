@@ -34,7 +34,7 @@ namespace onlinestore.api.Controllers
 
             if (cartItemFromRepo != null)
             {
-                cartItemFromRepo.Quantity = cartItemToCreateDto.Quantity;
+                cartItemFromRepo.Quantity += 1;
 
                 if (await _repo.SaveAll())
                     return Ok();
@@ -52,6 +52,23 @@ namespace onlinestore.api.Controllers
                     return CreatedAtRoute("GetCartItem", new { userId, id = cartitemToReturn.Id }, cartitemToReturn);
                 }
             }
+
+            throw new Exception("Failed to add product to cart");
+        }
+
+        [HttpPost("update")]
+        public async Task<IActionResult> UpdateProductToCart(int userId, CartItemToCreateDto cartItemToCreateDto)
+        {
+            if (userId != Convert.ToInt32(User.FindFirst(ClaimTypes.NameIdentifier).Value)) return Unauthorized();
+
+            var cartItemFromRepo = await _repo.GetCartItemForUser(userId, cartItemToCreateDto.ProductId);
+
+            if (cartItemFromRepo == null) return BadRequest("Product not found");
+
+            cartItemFromRepo.Quantity = cartItemToCreateDto.Quantity;
+
+            if (await _repo.SaveAll())
+                return Ok();
 
             throw new Exception("Failed to add product to cart");
         }

@@ -27,15 +27,20 @@ export class ProductsListComponent implements OnInit {
   ngOnInit() {
     this.route.data.subscribe(result => {
       this.products = result.products;
-      console.log(this.products);
     });
 
-    this.cartService.getCartCount(this.authService.decodedToken.nameid)
-      .subscribe((result: number) => {
-        this.authService.changeShoppingCartCount(result);
-      }, error => {
-        this.alert.error(error);
-      });
+    if (this.authService.loggedIn()) {
+      this.cartService.getCartCount(this.authService.decodedToken.nameid)
+        .subscribe((result: number) => {
+          this.authService.changeShoppingCartCount(result);
+        }, error => {
+          this.alert.error(error);
+        });
+    }
+  }
+
+  productLiked(likedProduct: Product) {
+    this.products.splice(this.products.indexOf(likedProduct), 1, likedProduct);
   }
 
 }

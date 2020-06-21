@@ -36,6 +36,7 @@ namespace onlinestore.api.Data
             var products = _context.Products
             .Include(p => p.Photos)
             .Include(c => c.Category)
+            .Include(l => l.Likes)
             .AsQueryable();
 
             switch (filter.SortBy)
@@ -63,6 +64,7 @@ namespace onlinestore.api.Data
             var product = await _context.Products
             .Include(p => p.Photos)
             .Include(c => c.Category)
+            .Include(l => l.Likes)
             .FirstOrDefaultAsync(p => p.Id == id);
 
             return product;
@@ -97,10 +99,19 @@ namespace onlinestore.api.Data
             .ToListAsync();
         }
 
-        public async Task<Like> GetLikedProduct(int id)
+        public async Task<Like> GetLikedProduct(int userId, int productId)
         {
             return await _context.Likes
-            .FirstOrDefaultAsync(p => p.Id == id);
+            .FirstOrDefaultAsync(p => p.UserId == userId && p.ProductId == productId);
+        }
+
+        public async Task<IEnumerable<Like>> GetLikedProducts(int userId)
+        {
+            return await _context.Likes
+            .Include(p => p.Product)
+            .Include(p => p.Product.Photos)
+            .Where(p => p.UserId == userId)
+            .ToListAsync();
         }
     }
 }

@@ -43,7 +43,7 @@ export class CartItemComponent implements OnInit {
     console.log(item.value);
 
     const cartItem: CartProduct = { productId: this.product.productId, quantity: item.value };
-    this.cartService.addToCart(this.authService.decodedToken.nameid, cartItem)
+    this.cartService.updateCartProduct(this.authService.decodedToken.nameid, cartItem)
       .subscribe(() => {
         this.product.quantity = item.value;
         this.changeQuantity.emit(this.product);

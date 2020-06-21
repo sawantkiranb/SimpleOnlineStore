@@ -1,3 +1,49 @@
-<p>
-  wish-list works!
-</p>
+<div class="container-main mt-5">
+  <div
+    fxLayout="row"
+    fxLayoutAlign="start stretch"
+    fxLayoutGap="32px"
+    *ngIf="products.length > 0; else emptyList"
+  >
+    <div class="product-Filter mr-2" fxFlex="15%">
+      <div class="text-center mt-2">
+        <form>
+          <h2>Filter</h2>
+          <mat-form-field>
+            <mat-label>Sort By</mat-label>
+            <mat-select [(ngModel)]="sortSelectedValue" name="food">
+              <mat-option *ngFor="let item of sortList" [value]="item.value">
+                {{ item.displayName }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </form>
+      </div>
+    </div>
+    <div
+      class="product-list"
+      fxFlex="85%"
+      fxLayout="row wrap"
+      fxLayoutAlign="start start"
+      fxLayoutGap="32px"
+    >
+      <app-liked-product-card
+        fxFlex="0 1  calc(50% - 32px)"
+        fxFlex.gt-xs="0 1 calc(33.3% - 32px)"
+        fxFlex.gt-sm="0 1 calc(25% - 32px)"
+        fxFlex.gt-md="0 1 calc(20%-32px)"
+        *ngFor="let product of products"
+        [product]="product"
+        (dislikeProduct)="productDisliked($event)"
+      ></app-liked-product-card>
+    </div>
+  </div>
+  <ng-template #emptyList>
+    <div class="empty-cart" fxLayout="column" fxLayoutAlign="center center">
+      <h1>There's nothing in your wishlist. Lets add more products..</h1>
+      <button [routerLink]="['/products']" mat-raised-button color="accent">
+        Add More Products
+      </button>
+    </div>
+  </ng-template>
+</div>

@@ -80,19 +80,23 @@ namespace onlinestore.api.Controllers
             throw new Exception($"Something went wrong whlie updating product with id : {id}");
         }
 
-        [HttpPost("{userId}/like/{id}")]
-        public async Task<IActionResult> LikeProduct(int userId, int id)
+        [HttpPost("{userId}/like/{productId}")]
+        public async Task<IActionResult> LikeProduct(int userId, int productId)
         {
             if (userId != Convert.ToInt32(User.FindFirst(ClaimTypes.NameIdentifier).Value))
                 return Unauthorized();
 
-            var productFromRepo = await _repo.GetProduct(id);
+            var productFromRepo = await _repo.GetProduct(productId);
             if (productFromRepo == null)
                 return BadRequest("Product not found");
 
+            var likedProduct = await _repo.GetLikedProduct(userId, productId);
+            if (likedProduct != null)
+                return BadRequest("You have already liked this product");
+
             _repo.Add(new Like
             {
-                ProductId = id,
+                ProductId = productId,
                 UserId = userId,
                 DateAdded = DateTime.Now
             });
@@ -103,13 +107,13 @@ namespace onlinestore.api.Controllers
             throw new Exception("Failed to add product too wishlist");
         }
 
-        [HttpPost("{userId}/dislike/{id}")]
-        public async Task<IActionResult> DislikeProduct(int userId, int id)
+        [HttpPost("{userId}/dislike/{productId}")]
+        public async Task<IActionResult> DislikeProduct(int userId, int productId)
         {
             if (userId != Convert.ToInt32(User.FindFirst(ClaimTypes.NameIdentifier).Value))
                 return Unauthorized();
 
-            var likedProduct = await _repo.GetLikedProduct(id);
+            var likedProduct = await _repo.GetLikedProduct(userId, productId);
             if (likedProduct == null)
                 return BadRequest("Product not found");
 
@@ -120,5 +124,19 @@ namespace onlinestore.api.Controllers
 
             throw new Exception("Failed to removing product from wishlist");
         }
+
+        [HttpGet("{userId}/like")]
+        public async Task<IActionResult> GetLikedProducts(int userId)
+        {
+            if (userId != Convert.ToInt32(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+                return Unauthorized();
+
+            var likedProducts = await _repo.GetLikedProducts(userId);
+
+            var likedProductsToReturn = _mapper.Map<IEnumerable<LikedProductToReturnDto>>(likedProducts);
+
+            return Ok(likedProductsToReturn);
+        }
+
     }
 }
