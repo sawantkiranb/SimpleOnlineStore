@@ -113,5 +113,18 @@ namespace onlinestore.api.Data
             .Where(p => p.UserId == userId)
             .ToListAsync();
         }
+
+        public async Task<IEnumerable<ShippingAddress>> GetAddresses(int userId)
+        {
+            return await _context.ShippingAddresses
+            .Where(u => u.UserId == userId)
+            .ToListAsync();
+        }
+
+        public async Task<ShippingAddress> GetAddress(int id)
+        {
+            return await _context.ShippingAddresses
+            .FirstOrDefaultAsync(a => a.Id == id);
+        }
     }
 }

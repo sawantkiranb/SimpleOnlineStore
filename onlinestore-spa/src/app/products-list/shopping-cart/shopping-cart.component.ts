@@ -1,9 +1,10 @@
 import { AuthService } from './../../_services/auth.service';
-import { ShoppingCartService } from './../../_services/shopping-cart.service';
 import { CartProduct } from './../../_models/cart-product';
 import { AlertService } from './../../_services/alert.service';
 import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
+
+
 
 @Component({
   selector: 'app-shopping-cart',
@@ -14,6 +15,7 @@ export class ShoppingCartComponent implements OnInit {
 
   products: CartProduct[];
   cartItemCount: number;
+
   constructor(private authService: AuthService, private route: ActivatedRoute, private alert: AlertService) { }
 
   ngOnInit() {
@@ -29,7 +31,7 @@ export class ShoppingCartComponent implements OnInit {
     this.authService.currentShoppingCartCount.subscribe(response => { this.cartItemCount = response; });
   }
 
-  calculateTotal() {
+  calculateCartTotal() {
     return (this.products.length > 0)
       ? this.products.map(a => a.price * a.quantity).reduce((a, c) => a + c)
       : 0;

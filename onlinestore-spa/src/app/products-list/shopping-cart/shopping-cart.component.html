@@ -8,7 +8,7 @@
     </div>
   </ng-container>
   <ng-template #productCart>
-    <div fxLayout="row wrap">
+    <div fxLayout="row wrap" fxLayoutAlign="start start">
       <div
         fxFlex="70%"
         fxLayout="column"
@@ -17,7 +17,7 @@
       >
         <div fxLayout="row wrap" fxLayoutAlign="space-between">
           <h1>Shopping Cart</h1>
-          <h2>Total : {{ calculateTotal() | currency: "INR":true }}</h2>
+          <h2>Total : {{ calculateCartTotal() | currency: "INR":true }}</h2>
         </div>
         <mat-divider></mat-divider>
 
@@ -47,15 +47,9 @@
         fxLayoutAlign="space-between stretch"
         class="shopping-summary"
       >
-        <div>
-          <h1>Summary</h1>
-          <mat-divider></mat-divider>
-          <div class="mt-3">
-            <p>
-              Summary goes here!!!
-            </p>
-          </div>
-        </div>
+        <app-order-summary
+          [cartTotal]="calculateCartTotal()"
+        ></app-order-summary>
         <div fxLayout="column" fxLayoutAlign="center">
           <mat-divider></mat-divider>
           <button class="mt-3" mat-raised-button color="accent">

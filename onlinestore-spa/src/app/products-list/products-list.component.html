@@ -38,7 +38,6 @@
         fxFlex.gt-md="0 1 calc(20%-32px)"
         *ngFor="let product of products"
         [product]="product"
-        [wishlisted]="false"
         (likeProduct)="productLiked($event)"
       ></app-product-card>
     </div>

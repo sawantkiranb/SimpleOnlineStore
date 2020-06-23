@@ -46,6 +46,11 @@ namespace onlinestore.api.Helpers
             .ForMember(dest => dest.ShortDescription, opt => opt.MapFrom(src => src.Product.ShortDescription))
             .ForMember(dest => dest.Stock, opt => opt.MapFrom(src => src.Product.Stock))
             .ForMember(dest => dest.PhotoUrl, opt => opt.MapFrom(src => src.Product.Photos.FirstOrDefault(p => p.IsMain).Url));
+
+            //Shipping address
+            CreateMap<AddressToCreateDto, ShippingAddress>();
+            CreateMap<ShippingAddress, AddressToReturnDto>();
+
         }
     }
 }

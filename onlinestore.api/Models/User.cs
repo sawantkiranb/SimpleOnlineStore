@@ -13,6 +13,7 @@ namespace onlinestore.api.Models
         public DateTime Created { get; set; }
         public DateTime LastActive { get; set; }
 
-        ICollection<Like> Likes { get; set; }
+        public ICollection<Like> Likes { get; set; }
+        public ICollection<ShippingAddress> ShippingAddresses { get; set; }
     }
 }

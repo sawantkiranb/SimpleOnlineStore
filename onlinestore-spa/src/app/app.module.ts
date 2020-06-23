@@ -1,3 +1,5 @@
+import { NegativeNumberPipe } from './_pipes/negative-number.pipe';
+import { OrderSummaryComponent } from './products-list/shopping-cart/order-summary/order-summary.component';
 import { LikedProductCardComponent } from './products-list/wish-list/liked-product-card/liked-product-card.component';
 import { WishListComponent } from './products-list/wish-list/wish-list.component';
 import { CartItemComponent } from './products-list/shopping-cart/cart-item/cart-item.component';
@@ -46,7 +48,9 @@ import { CheckoutComponent } from './checkout/checkout.component';
     CartItemComponent,
     WishListComponent,
     LikedProductCardComponent,
-    CheckoutComponent
+    CheckoutComponent,
+    OrderSummaryComponent,
+    NegativeNumberPipe
   ],
   imports: [
     BrowserModule,

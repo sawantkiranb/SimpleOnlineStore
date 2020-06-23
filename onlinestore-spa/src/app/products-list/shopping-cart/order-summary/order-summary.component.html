@@ -1,0 +1,26 @@
+<div>
+  <h1>Summary</h1>
+  <mat-divider></mat-divider>
+  <div class="mt-3" fxLayout="column" fxLayoutAlign="stretch">
+    <h3>Price Details</h3>
+    <div fxLayout="row" fxLayoutAlign="space-between stretch">
+      <h4>Cart Total</h4>
+      <p>{{ cartTotal | currency: "INR":true }}</p>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="space-between stretch">
+      <h4>Discount</h4>
+      <p>{{ calculateDiscount() | currency: "INR":true  }}</p>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="space-between stretch">
+      <h4>Shipping Charges</h4>
+      <p>
+        {{ orderSummaryConfig.deliveryCharges | currency: "INR":true }}
+      </p>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="mt-2" fxLayout="row" fxLayoutAlign="space-between stretch">
+      <h4>Total</h4>
+      <p>{{ calculateOrderTotal() | currency: "INR":true }}</p>
+    </div>
+  </div>
+</div>
