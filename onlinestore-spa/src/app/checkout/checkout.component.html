@@ -1,3 +1,27 @@
-<p>
-  checkout works!
-</p>
+<div class="container-main mt-5">
+  <div fxLayout="row" fxLayoutAlign="start stretch">
+    <div class="pl-5" fxFlex="70%">
+      <div
+        fxLayout="row"
+        fxLayoutAlign="space-between start"
+        class="address-header"
+      >
+        <h1>Shipping Address</h1>
+        <button
+          *ngIf="addresses.length <= 5"
+          mat-stroked-button
+          color="primary"
+          (click)="openDialog()"
+        >
+          <mat-icon>add</mat-icon> Add Address
+        </button>
+      </div>
+      <mat-divider></mat-divider>
+      <app-address [addresses]="addresses"></app-address>
+    </div>
+    <div class="pl-5" fxFlex="30%">
+      <h1>Order Summary</h1>
+      <mat-divider></mat-divider>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,111 @@
+<div class="p-3">
+  <form [formGroup]="editAddressForm">
+    <h3 mat-dialog-title>
+      {{ data.editMode ? "Edit Address" : "New Address" }}
+    </h3>
+    <mat-divider></mat-divider>
+    <div
+      mat-dialog-content
+      fxLayout="column"
+      fxLayoutGap="5px"
+      class="form-content mt-2"
+    >
+      <mat-form-field>
+        <input
+          matInput
+          name="contactName"
+          formControlName="contactName"
+          placeholder="Contact Name"
+          [(ngModel)]="this.address.contactName"
+        />
+      </mat-form-field>
+      <mat-form-field>
+        <input
+          matInput
+          name="mobile"
+          formControlName="mobile"
+          placeholder="Mobile Number"
+          [(ngModel)]="this.address.mobile"
+        />
+      </mat-form-field>
+      <mat-form-field>
+        <input
+          matInput
+          name="address"
+          formControlName="address"
+          placeholder="Address"
+          [(ngModel)]="this.address.address"
+        />
+      </mat-form-field>
+
+      <div fxLayout="row" fxLayoutAlign="space-between start">
+        <mat-form-field>
+          <input
+            matInput
+            name="locality"
+            formControlName="locality"
+            placeholder="Locality"
+            [(ngModel)]="this.address.locality"
+          />
+        </mat-form-field>
+        <mat-form-field>
+          <input
+            matInput
+            name="pincode"
+            formControlName="pincode"
+            placeholder="Pincode"
+            [(ngModel)]="this.address.pincode"
+          />
+        </mat-form-field>
+      </div>
+
+      <div fxLayout="row" fxLayoutAlign="space-between start">
+        <mat-form-field>
+          <input
+            matInput
+            name="city"
+            formControlName="city"
+            placeholder="City"
+            [(ngModel)]="this.address.city"
+          />
+        </mat-form-field>
+        <mat-form-field>
+          <input
+            matInput
+            name="state"
+            formControlName="state"
+            placeholder="State"
+            [(ngModel)]="this.address.state"
+          />
+        </mat-form-field>
+      </div>
+      <div mat-dialog-actions fxLayout="row" fxLayoutGap="30px">
+        <mat-slide-toggle
+          formControlName="isDefault"
+          [(ngModel)]="this.address.isDefault"
+          >Primary</mat-slide-toggle
+        >
+        <mat-slide-toggle
+          formControlName="isHome"
+          [(ngModel)]="this.address.isHome"
+          >Home</mat-slide-toggle
+        >
+      </div>
+    </div>
+    <mat-divider></mat-divider>
+    <div mat-dialog-actions fxLayout="row" fxLayoutAlign="end" class="mt-2">
+      <button mat-stroked-button color="primary" (click)="onNoClick()">
+        Cancel
+      </button>
+      <button
+        type="submit"
+        mat-flat-button
+        color="primary"
+        [mat-dialog-close]="data"
+        [disabled]="!editAddressForm.valid"
+      >
+        {{ data.editMode ? "Update" : "Save" }}
+      </button>
+    </div>
+  </form>
+</div>

@@ -1,3 +1,4 @@
+import { AddressComponent } from './checkout/address/address.component';
 import { NegativeNumberPipe } from './_pipes/negative-number.pipe';
 import { OrderSummaryComponent } from './products-list/shopping-cart/order-summary/order-summary.component';
 import { LikedProductCardComponent } from './products-list/wish-list/liked-product-card/liked-product-card.component';
@@ -31,6 +32,8 @@ import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.componen
 import { ShoppingCartResolver } from './_resolvers/shopping-cart.resolver';
 import { LikedProductsResolver } from './_resolvers/liked-products.resolver';
 import { CheckoutComponent } from './checkout/checkout.component';
+import { AddressResolver } from './_resolvers/address.resolver';
+import { EditAddressComponent } from './checkout/edit-address/edit-address.component';
 
 @NgModule({
   declarations: [
@@ -50,6 +53,8 @@ import { CheckoutComponent } from './checkout/checkout.component';
     LikedProductCardComponent,
     CheckoutComponent,
     OrderSummaryComponent,
+    AddressComponent,
+    EditAddressComponent,
     NegativeNumberPipe
   ],
   imports: [
@@ -68,7 +73,8 @@ import { CheckoutComponent } from './checkout/checkout.component';
     ProductListResolver,
     ProductDetailsResolver,
     ShoppingCartResolver,
-    LikedProductsResolver
+    LikedProductsResolver,
+    AddressResolver
   ],
   bootstrap: [
     AppComponent

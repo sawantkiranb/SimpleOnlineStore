@@ -23,16 +23,16 @@ export class AppComponent implements OnInit {
 
     if (token) {
       this.authService.decodedToken = this.jwtHelper.decodeToken(token);
+    }
 
-
-      this.cartService.getCartCount(this.authService.decodedToken.nameid)
+    if(this.authService.loggedIn()){
+ this.cartService.getCartCount(this.authService.decodedToken.nameid)
         .subscribe((result: number) => {
           this.authService.changeShoppingCartCount(result);
         }, error => {
           this.alert.error(error);
         });
-
-    }
+}
 
     console.log('app component');
 

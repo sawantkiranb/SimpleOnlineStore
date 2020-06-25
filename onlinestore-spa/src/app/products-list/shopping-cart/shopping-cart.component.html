@@ -52,7 +52,12 @@
         ></app-order-summary>
         <div fxLayout="column" fxLayoutAlign="center">
           <mat-divider></mat-divider>
-          <button class="mt-3" mat-raised-button color="accent">
+          <button
+            class="mt-3"
+            mat-raised-button
+            color="accent"
+            [routerLink]="['/checkout']"
+          >
             Place Order
           </button>
         </div>

@@ -38,22 +38,25 @@ export class ProductDetailsComponent implements OnInit {
     if (this.authService.loggedIn()) {
 
       const dialogRef = this.dialog.open(ConfirmDialogComponent, {
-        data: { productId: id, }
+        data: { productId: id, },
+        position: { top: '100px' },
+        role: 'dialog'
       });
 
       dialogRef.afterClosed()
         .subscribe(result => {
 
-          console.log('Product Id: ' + result);
-          // Add product to cart
-          const cartItem: CartProduct = { productId: result, quantity: 1 };
-          this.cartService.addToCart(this.authService.decodedToken.nameid, cartItem)
-            .subscribe(response => {
-              this.authService.changeShoppingCartCount(this.shoppingCartCount + 1);
-              this.alert.success('Product added to cart');
-            }, error => {
-              this.alert.error(error);
-            });
+          if (result !== undefined) {
+
+            const cartItem: CartProduct = { productId: result, quantity: 1 };
+            this.cartService.addToCart(this.authService.decodedToken.nameid, cartItem)
+              .subscribe(response => {
+                this.authService.changeShoppingCartCount(this.shoppingCartCount + 1);
+                this.alert.success('Product added to cart');
+              }, error => {
+                this.alert.error(error);
+              });
+          }
         });
 
     } else {

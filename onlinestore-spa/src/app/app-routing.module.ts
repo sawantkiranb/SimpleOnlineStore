@@ -1,3 +1,4 @@
+import { AddressResolver } from './_resolvers/address.resolver';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { LikedProductsResolver } from './_resolvers/liked-products.resolver';
 import { ShoppingCartComponent } from './products-list/shopping-cart/shopping-cart.component';
@@ -15,7 +16,12 @@ import { ShoppingCartResolver } from './_resolvers/shopping-cart.resolver';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
-  { path: 'checkout', component: CheckoutComponent, canActivate: [AuthGuard] },
+  {
+    path: 'checkout',
+    component: CheckoutComponent,
+    canActivate: [AuthGuard],
+    resolve: { addresses: AddressResolver, products: ShoppingCartResolver }
+  },
   {
     path: 'products',
     runGuardsAndResolvers: 'always',

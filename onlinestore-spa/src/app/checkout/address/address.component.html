@@ -1,0 +1,67 @@
+<mat-radio-group [(ngModel)]="selectedAddress">
+  <div class="address" fxLayout="column" *ngFor="let address of addresses">
+    <div>
+      <div fxLayout="row" fxLayoutAlign="space-between start">
+        <div fxLayout="row" fxLayoutAlign="start start">
+          <mat-radio-button
+            [value]="address.id"
+            [checked]="address.isDefault"
+          ></mat-radio-button>
+          <h4>{{ address.contactName }}</h4>
+        </div>
+        <div>
+          <button
+            mat-stroked-button
+            color="primary"
+            (click)="openDialog(address)"
+          >
+            <mat-icon>create</mat-icon>
+          </button>
+
+          <button
+            *ngIf="!address.isDefault"
+            mat-stroked-button
+            color="warn"
+            (click)="deleteAddress(address)"
+          >
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+      </div>
+      <p>
+        {{
+          address.address +
+            ", " +
+            address.locality +
+            ", " +
+            address.city +
+            ", " +
+            address.state +
+            "-" +
+            address.pincode
+        }}
+      </p>
+      <div fxLayout="row" fxLayoutAlign="start center">
+        <p>
+          Mobile : <strong>{{ address.mobile }}</strong>
+        </p>
+      </div>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="mt-2">
+      <button
+        *ngIf="address.isDefault"
+        mat-flat-button
+        color="primary"
+        class="mr-2"
+      >
+        Primary
+      </button>
+      <button mat-stroked-button color="{{ address.isHome ? 'accent' : '' }}">
+        {{ address.isHome ? "Home" : "Office" }}
+      </button>
+    </div>
+  </div>
+</mat-radio-group>
+
+<div>Selected Address : {{ selectedAddress }}</div>

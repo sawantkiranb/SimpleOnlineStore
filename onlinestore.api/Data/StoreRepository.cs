@@ -118,6 +118,7 @@ namespace onlinestore.api.Data
         {
             return await _context.ShippingAddresses
             .Where(u => u.UserId == userId)
+            .OrderByDescending(u => u.IsDefault)
             .ToListAsync();
         }
 

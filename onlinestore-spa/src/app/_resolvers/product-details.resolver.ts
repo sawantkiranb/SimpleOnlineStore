@@ -15,8 +15,8 @@ export class ProductDetailsResolver implements Resolve<Product>{
 
     return this.productService.getProduct(route.params.id)
       .pipe(
-        catchError(error => {
-          this.alert.error(error);
+        catchError(() => {
+          this.alert.error('Failed to retrive product');
           return of(null);
         })
       );

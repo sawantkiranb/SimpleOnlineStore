@@ -106,6 +106,17 @@ namespace onlinestore.api.Controllers
 
             if (addressesFromRepo.ToList().Count == 0)
                 addressToCreateDto.IsDefault = true;
+            else
+            {
+                if (addressToCreateDto.IsDefault)
+                {
+                    foreach (var item in addressesFromRepo)
+                    {
+                        if (item.Id != addressToCreateDto.Id)
+                            item.IsDefault = false;
+                    }
+                }
+            }
 
             var address = _mapper.Map<ShippingAddress>(addressToCreateDto);
             address.UserId = userId;
@@ -132,19 +143,20 @@ namespace onlinestore.api.Controllers
                 return BadRequest("Address not found");
 
             var addressesFromRepo = await _repo.GetAddresses(userId);
-            foreach (var address in addressesFromRepo)
+
+            if (addressToCreateDto.IsDefault)
             {
-                if ((address.Id != addressFromRepo.Id))
-                    address.IsDefault = false;
+                foreach (var item in addressesFromRepo)
+                {
+                    if (item.Id != addressToCreateDto.Id)
+                        item.IsDefault = false;
+                }
             }
-
-            if (await _repo.SaveAll())
-                return NoContent();
-
+           
             _mapper.Map(addressToCreateDto, addressFromRepo);
 
             if (await _repo.SaveAll())
-                return Ok();
+                return NoContent();
 
             throw new Exception("Failed to update address");
         }

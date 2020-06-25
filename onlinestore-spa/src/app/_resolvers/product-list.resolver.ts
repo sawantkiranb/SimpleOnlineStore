@@ -14,8 +14,8 @@ export class ProductListResolver implements Resolve<Product[]>{
   resolve(): Observable<Product[]> {
 
     return this.productService.getProducts()
-      .pipe(catchError(error => {
-        this.alert.error(error);
+      .pipe(catchError(() => {
+        this.alert.error('Failed to retrive products');
         return of(null);
       }));
 
